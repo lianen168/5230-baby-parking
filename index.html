@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5230.baby - 我爱上你 · 始于初见</title>
+    <style>
+        :root {
+            /* Palette: Romantic Pink, Passionate Red, Pure White */
+            --primary-pink: #FF6B81;
+            --deep-red: #C23616;
+            --soft-bg: linear-gradient(180deg, #FFF0F5 0%, #FFFFFF 100%);
+            --text-color: #2F3542;
+            --card-bg: rgba(255, 255, 255, 0.9);
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: var(--soft-bg);
+            color: var(--text-color);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- Header Section --- */
+        header {
+            text-align: center;
+            padding: 4rem 1rem 2rem;
+            position: relative;
+        }
+
+        .domain-name {
+            font-size: clamp(3rem, 9vw, 6.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+            cursor: default;
+        }
+
+        /* Effect 1: 5230 - Electric Spark (The moment of falling in love) */
+        .num-part {
+            display: inline-block;
+            color: var(--deep-red);
+            text-shadow: 0 0 5px rgba(194, 54, 22, 0.2);
+            animation: electricHeartbeat 1.5s infinite ease-in-out;
+        }
+
+        /* Effect 2: .baby - Soft Float (The tenderness of a loved one/baby) */
+        .tld-part {
+            display: inline-block;
+            color: var(--primary-pink);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            animation: softFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes electricHeartbeat {
+            0% { transform: scale(1); text-shadow: 0 0 5px rgba(194, 54, 22, 0); }
+            10% { transform: scale(1.1); text-shadow: 0 0 20px rgba(194, 54, 22, 0.6); }
+            20% { transform: scale(1); text-shadow: 0 0 5px rgba(194, 54, 22, 0); }
+            30% { transform: scale(1.1); text-shadow: 0 0 20px rgba(194, 54, 22, 0.6); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes softFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: #747d8c;
+            font-weight: 300;
+            margin-top: 10px;
+            letter-spacing: 2px;
+        }
+
+        /* --- Canvas Visualization --- */
+        #visual-wrapper {
+            position: relative;
+            width: 100%;
+            height: 420px;
+            background: radial-gradient(circle, #fff 20%, #ffeaa7 100%); /* Warm light center */
+            overflow: hidden;
+            margin-bottom: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.5);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        canvas {
+            display: block;
+        }
+
+        .visual-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.2rem;
+            color: rgba(255, 107, 129, 0.2);
+            font-weight: bold;
+            letter-spacing: 5px;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        /* --- 8 Fields Grid --- */
+        .section-container {
+            padding: 2rem 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2rem;
+            color: var(--deep-red);
+        }
+        
+        .section-header p {
+            color: #666;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(255, 107, 129, 0.2);
+            border-color: var(--primary-pink);
+        }
+
+        .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            color: var(--text-color);
+            margin-bottom: 0.8rem;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* --- CTA Section --- */
+        .cta-section {
+            text-align: center;
+            padding: 5rem 1rem;
+            background: linear-gradient(0deg, #fff 0%, rgba(255,234,167,0.2) 100%);
+        }
+
+        .price-tag {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--deep-red);
+            margin-bottom: 1.5rem;
+        }
+
+        .price-tag span {
+            font-size: 1.5rem;
+            color: #999;
+            font-weight: 400;
+        }
+
+        .buy-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #FF6B81, #FF4757);
+            color: white;
+            padding: 1.2rem 3.5rem;
+            font-size: 1.3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 10px 20px rgba(255, 71, 87, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-weight: bold;
+        }
+
+        .buy-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(255, 71, 87, 0.5);
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #a4b0be;
+            font-size: 0.9rem;
+            border-top: 1px solid #f1f2f6;
+        }
+
+        .email-link {
+            color: var(--primary-pink);
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        /* Toast */
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #2F3542;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 16px;
+            position: fixed;
+            z-index: 100;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        #toast.show {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="domain-name">
+            <span class="num-part">5230</span><span class="tld-part">.baby</span>
+        </div>
+        <div class="tagline">从“我爱上你”到“我们的家”</div>
+    </header>
+
+    <!-- Visual Canvas: Falling in Love Flow -->
+    <div id="visual-wrapper">
+        <canvas id="loveFlowCanvas"></canvas>
+        <div class="visual-text">FALLING IN LOVE</div>
+    </div>
+
+    <section class="section-container">
+        <div class="section-header">
+            <h2>💕 8大领域：记录爱的旅程 💕</h2>
+            <p>不仅仅是一个域名，更是人生幸福的里程碑</p>
+        </div>
+        
+        <div class="grid">
+            <!-- 1. Confession -->
+            <div class="card">
+                <span class="icon">💌</span>
+                <h3>完美表白 (Confession)</h3>
+                <p>5230 代表“我爱上你”。发送这个链接，让对方点开的瞬间，就是你最浪漫的告白。</p>
+            </div>
+            <!-- 2. Proposal -->
+            <div class="card">
+                <span class="icon">💍</span>
+                <h3>数字求婚 (Proposal)</h3>
+                <p>在这个页面刻录你们相识的点滴，用“Baby”作为对未来的期许，许下一生的承诺。</p>
+            </div>
+            <!-- 3. Pregnancy Announcement -->
+            <div class="card">
+                <span class="icon">🤰</span>
+                <h3>新生报喜 (New Life)</h3>
+                <p>.baby 是新生儿最好的代名词。用它来公布怀孕喜讯，寓意“我们相爱(5230)，有了宝宝(.baby)”。</p>
+            </div>
+            <!-- 4. Growth Diary -->
+            <div class="card">
+                <span class="icon">📝</span>
+                <h3>成长日记 (Growth Diary)</h3>
+                <p>从相爱到孩子出生，这是一个专属的家庭私密博客，记录宝宝的第一次微笑、第一次叫爸爸妈妈。</p>
+            </div>
+            <!-- 5. Couple's Space -->
+            <div class="card">
+                <span class="icon">👩‍❤️‍👨</span>
+                <h3>二人世界 (Couple's Space)</h3>
+                <p>即便有了家庭，也不要忘记“我爱上你”的初心。这是专属于夫妻二人的甜蜜云端空间。</p>
+            </div>
+            <!-- 6. Digital Gift -->
+            <div class="card">
+                <span class="icon">🎁</span>
+                <h3>爱的礼物 (The Gift)</h3>
+                <p>在情人节、纪念日或孩子生日，赠送这个全球唯一的数字资产，胜过任何转瞬即逝的奢侈品。</p>
+            </div>
+            <!-- 7. Family Trust -->
+            <div class="card">
+                <span class="icon">🏦</span>
+                <h3>家庭基金 (Family Fund)</h3>
+                <p>为孩子的教育金或家庭储蓄账户命名。5230.baby 寓意着因爱而聚，为爱增值。</p>
+            </div>
+            <!-- 8. Future Identity -->
+            <div class="card">
+                <span class="icon">🆔</span>
+                <h3>未来身份 (Future ID)</h3>
+                <p>Web3 时代，域名是唯一的身份标识。为孩子锁定这个充满爱意的ID，是他未来行走数字世界的护身符。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="price-tag">$100 <span>USD</span></div>
+        <!-- Spaceship Link - Opens in New Tab -->
+        <a href="https://www.spaceship.com/s/buy/5230.baby/Fj8gJhK9TIVDEpN3" target="_blank" class="buy-button">
+            立即购买 · 拥有这份爱
+        </a>
+        <p style="margin-top: 15px; color: #a4b0be; font-size: 0.9rem;">
+            Spaceship 官方担保 · 安全即时转移
+        </p>
+    </section>
+
+    <footer>
+        <p>联系卖家: <span class="email-link" onclick="copyEmail()">joshua369x@gmail.com</span></p>
+        <p>© 2026 5230.baby | 我爱上你 All Rights Reserved.</p>
+    </footer>
+
+    <div id="toast">邮箱已复制 (Email Copied)</div>
+
+    <script>
+        // --- Email Copy Function ---
+        function copyEmail() {
+            const email = "joshua369x@gmail.com";
+            navigator.clipboard.writeText(email).then(() => {
+                const toast = document.getElementById("toast");
+                toast.className = "show";
+                setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 2500);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+
+        // --- Canvas Animation: Flowing Love "我爱上你" ---
+        const canvas = document.getElementById('loveFlowCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        let width, height;
+        let particles = [];
+        
+        // Symbols: Numbers + "I fall in love with you" + Hearts
+        const symbols = ['5', '2', '3', '0', '我', '爱', '上', '你', '❤', '💕'];
+
+        function resize() {
+            width = canvas.width = canvas.parentElement.offsetWidth;
+            height = canvas.height = canvas.parentElement.offsetHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.reset(true);
+            }
+
+            reset(initial = false) {
+                this.x = Math.random() * width;
+                this.y = initial ? Math.random() * height : height + 30;
+                
+                this.speed = 1 + Math.random() * 2.5; // Upward speed (bubbles rising)
+                this.size = 14 + Math.random() * 20;
+                this.text = symbols[Math.floor(Math.random() * symbols.length)];
+                
+                // Colors: Shades of pink and red
+                const rand = Math.random();
+                if (rand < 0.6) {
+                    this.color = `rgba(255, 107, 129, ${0.3 + Math.random()*0.5})`; // Pink
+                } else {
+                    this.color = `rgba(194, 54, 22, ${0.2 + Math.random()*0.4})`; // Red
+                }
+
+                // Wiggle effect
+                this.wiggle = Math.random() * Math.PI * 2;
+                this.wiggleSpeed = 0.02 + Math.random() * 0.03;
+            }
+
+            update() {
+                this.y -= this.speed;
+                this.wiggle += this.wiggleSpeed;
+                this.x += Math.sin(this.wiggle) * 1; // Gentle side-to-side motion
+
+                // Fade out at the top logic is handled by y-check
+                if (this.y < -40) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.font = `${this.size}px "Microsoft YaHei", sans-serif`;
+                ctx.fillStyle = this.color;
+                ctx.fillText(this.text, this.x, this.y);
+            }
+        }
+
+        // Initialize Particles
+        for (let i = 0; i < 100; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+    </script>
+</body>
+</html>
